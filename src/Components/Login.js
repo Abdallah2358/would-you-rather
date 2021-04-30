@@ -2,8 +2,10 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { setAuthedUser } from '../Actions/authUser'
 class Login extends Component {
+   
     authUser = (id) => {
         this.props.dispatch(setAuthedUser(id))
+        this.props.authUser(id)
         /* remember to route to home after in here */
     }
     render() {

@@ -1,13 +1,32 @@
+import { Button } from "react-bootstrap";
 import { Component } from "react";
 import { connect } from "react-redux";
-
+import Question from './Question'
 class Home extends Component {
+    state = {
+        page: 'unanswered'
+    }
+    togglePage = (e) => {
+        this.setState((prevState) => ({
+            page: prevState.page === 'answered' ? 'unanswered' : 'answered'
+        }))
 
+    }
     render() {
 
+        const { questionIds, authUser, answeredQuestionIds } = this.props;
+        const unAnsweredQuesID = questionIds.filter((id)=>!(answeredQuestionIds.includes((id))))
         return (
-            <div>
-                home
+            <div >
+                <Button 
+                value={this.state.page} 
+                onClick={this.togglePage}
+                 >go to {this.state.page=== 'answered' ? 'unanswered' : 'answered'}</Button>
+                 
+                {this.state.page=== 'unanswered' ? 
+                unAnsweredQuesID.map((id) => <Question authUser={authUser} key={id} id={id} />): 
+                answeredQuestionIds.map((id) => <Question authUser={authUser} key={id} id={id} />
+                )}
             </div>
         );
 
@@ -15,10 +34,14 @@ class Home extends Component {
 
 
 }
-function mapStateToProps({questions , authUser}) {
-        return {
-            
-        }
+
+function mapStateToProps(state) {
+    const { users, questions, authUser } = state
+    return {
+        answeredQuestionIds: [].concat((users[authUser] ? users[authUser].questions : null)),
+        questionIds: Object.keys(questions),
+        authUser,
+    }
 }
 
-export default connect()(Home);
+export default connect(mapStateToProps)(Home);

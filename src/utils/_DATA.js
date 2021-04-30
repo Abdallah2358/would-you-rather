@@ -1,5 +1,5 @@
 let users = {
-  sarahedo: {
+  'sarahedo': {
     id: 'sarahedo',
     name: 'Sarah Edo',
   /*   avatarURL: , */
@@ -57,7 +57,7 @@ let questions = {
       text: 'become a superhero',
     },
     optionTwo: {
-      votes: ['johndoe', 'sarahedo'],
+      votes: ['johndoe'],
       text: 'become a supervillain'
     }
   },
@@ -83,7 +83,7 @@ let questions = {
       text: 'be a front-end developer',
     },
     optionTwo: {
-      votes: ['sarahedo'],
+      votes: [],
       text: 'be a back-end developer'
     }
   },
