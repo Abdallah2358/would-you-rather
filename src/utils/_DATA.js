@@ -17,7 +17,7 @@ let users = {
   /*   avatarURL: , */
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
-      "xj352vofupe1dqz9emx13r": 'optionTwo',
+      "loxhs1bqm25b708cmbf3g": 'optionTwo',
     },
     questions: ['loxhs1bqm25b708cmbf3g', 'vthrdm985a262al8qx3do'],
   },
@@ -26,11 +26,9 @@ let users = {
     name: 'John Doe',
   /*   avatarURL: , */
     answers: {
-      "xj352vofupe1dqz9emx13r": 'optionOne',
-      "vthrdm985a262al8qx3do": 'optionTwo',
-      "6ni6ok3ym7mf1p33lnez": 'optionTwo'
+      
     },
-    questions: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r'],
+    questions: [],
   }
 }
 
@@ -57,7 +55,7 @@ let questions = {
       text: 'become a superhero',
     },
     optionTwo: {
-      votes: ['johndoe'],
+      votes: [],
       text: 'become a supervillain'
     }
   },
@@ -83,7 +81,7 @@ let questions = {
       text: 'be a front-end developer',
     },
     optionTwo: {
-      votes: [],
+      votes: ['tylermcginnis'],
       text: 'be a back-end developer'
     }
   },
@@ -96,7 +94,7 @@ let questions = {
       text: 'find $50 yourself',
     },
     optionTwo: {
-      votes: ['johndoe'],
+      votes: [],
       text: 'have your best friend find $500'
     }
   },
@@ -105,11 +103,11 @@ let questions = {
     author: 'johndoe',
     timestamp: 1493579767190,
     optionOne: {
-      votes: ['johndoe'],
+      votes: [],
       text: 'write JavaScript',
     },
     optionTwo: {
-      votes: ['tylermcginnis'],
+      votes: [],
       text: 'write Swift'
     }
   },

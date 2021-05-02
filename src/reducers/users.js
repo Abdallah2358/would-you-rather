@@ -8,14 +8,41 @@ export default function users(state = {}, action) {
                 ...action.users
             }
         case TOGGLE_USER_ANSWER:
+            let answers = {};
+            if (Object.keys(state[action.authedUser].answers).includes(action.qid)) {
+                if (state[action.authedUser].answers[action.qid] === action.answer) {
+                    console.log('in reducer in 1');
+                  /*   for (const key in state[action.authedUser].answers) {
+
+                        if (key !== action.qid) {
+                            Object.assign(answers,
+                                {
+                                    [key]: state[action.authedUser].answers[key]
+                                })
+                        }
+                    } */
+                    answers = { ...state[action.authedUser].answers,
+                        [action.qid]: action.answer};
+                        delete answers[action.qid]; //lol :(
+                } else {
+                    console.log('in reducer in 2');
+                    answers = {
+                        ...state[action.authedUser].answers,
+                        [action.qid]: action.answer
+                    }
+                } 
+            } else {
+                console.log('in reducer in 3');
+                answers = {
+                    ...state[action.authedUser].answers,
+                    [action.qid]: action.answer
+                }
+            }
             return {
                 ...state,
                 [action.authedUser]: {
                     ...state[action.authedUser],
-                    answers: {
-                        ...state[action.authedUser].answers,
-                        [action.qid]: action.answer
-                    }
+                    answers:answers
                 }
             }
 

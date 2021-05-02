@@ -6,6 +6,7 @@ import Nav from './Nav';
 import { getInitialData } from '../utils/api'
 import { connect } from 'react-redux';
 import { handleInitialData } from "../Actions/shared";
+import {setAuthedUser} from '../Actions/authUser';
 class App extends Component {
   state = {
     page: 'login',
@@ -26,10 +27,12 @@ class App extends Component {
     }))
   }
 logOut=()=>{
+
   this.setState((prevState) => ({
     page: 'login',
     authedUser: ''
   }))
+  this.props.dispatch(setAuthedUser(''))
 }
 
   render() {
