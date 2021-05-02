@@ -1,4 +1,4 @@
-import { RECEIVE_USERS } from "../Actions/users";
+import { ADD_USER_QUESTION, RECEIVE_USERS } from "../Actions/users";
 import { TOGGLE_USER_ANSWER } from '../Actions/users'
 export default function users(state = {}, action) {
     switch (action.type) {
@@ -46,6 +46,15 @@ export default function users(state = {}, action) {
                 }
             }
 
+
+            case ADD_USER_QUESTION:
+            return{
+                ...state,
+                [action.authedUser]: {
+                    ...state[action.authedUser],
+                    questions : [...state[action.authedUser].questions, action.qid]
+                }
+            }
         default:
             return state;
 

@@ -28,9 +28,9 @@ class Login extends Component {
 
 }
 
-function mapStateToProps({ users }) {
+function mapStateToProps({ users ,authUser}) {
     return {
-        userIDs: Object.keys(users)
+        userIDs: Object.keys(users),
     }
 }
 export default connect(mapStateToProps)(Login);

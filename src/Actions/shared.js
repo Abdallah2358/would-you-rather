@@ -1,10 +1,8 @@
-import { getInitialData } from '../utils/api'
-import { receiveUsers } from "./users";
-import { receiveQuestions } from "./questions";
+import { getInitialData, saveQuestion } from '../utils/api'
+import { addQuestionToUser, receiveUsers } from "./users";
+import { addQuestion, receiveQuestions } from "./questions";
 import { setAuthedUser } from "./authUser";
-
 import {saveQuestionAnswer} from '../utils/api';
-
 import {toggleQuestionAnswer} from './questions';
 import {toggleUserAnswer} from './users';
 /* Todo: remove this id an replace it by  the one received from login */
@@ -45,3 +43,24 @@ export function handleAnswerVote(info ) {
       });
     }
 }
+
+export function handleAddQuestion(op1, op2) {
+    return (dispatch, getsState) => {
+      const { authUser } = getsState();
+      return saveQuestion({
+        optionOneText: op1,
+        optionTwoText: op2,
+        author: authUser
+      }).then(
+        (question) => {
+          console.log(question.id);
+          dispatch(addQuestion(question));
+            dispatch(addQuestionToUser({
+                qid:question.id,
+                authedUser:authUser
+            })
+          ) 
+        return question})
+      
+    }
+  }

@@ -2,7 +2,7 @@ let users = {
   'sarahedo': {
     id: 'sarahedo',
     name: 'Sarah Edo',
-   avatarURL:'https://miefly.com/wp-content/uploads/2020/11/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg' ,
+  /*   avatarURL: , */
     answers: {
       "8xf0y6ziyjabvozdd253nd": 'optionOne',
       "6ni6ok3ym7mf1p33lnez": 'optionTwo',
@@ -14,7 +14,7 @@ let users = {
   tylermcginnis: {
     id: 'tylermcginnis',
     name: 'Tyler McGinnis',
-   avatarURL: 'https://miefly.com/wp-content/uploads/2020/11/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', 
+  /*   avatarURL: , */
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
       "loxhs1bqm25b708cmbf3g": 'optionTwo',
@@ -24,7 +24,7 @@ let users = {
   johndoe: {
     id: 'johndoe',
     name: 'John Doe',
-    avatarURL: 'https://miefly.com/wp-content/uploads/2020/11/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg' , 
+  /*   avatarURL: , */
     answers: {
       
     },

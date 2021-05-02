@@ -14,7 +14,7 @@ class Home extends Component {
     }
     render() {
 
-        const { questionIds, authUser, answeredQuestionIds } = this.props;
+        const { questionIds, answeredQuestionIds } = this.props;
         const unAnsweredQuesID = questionIds.filter((id) => !answeredQuestionIds.includes(id))
         return (
             <div >
@@ -24,8 +24,8 @@ class Home extends Component {
                 >go to {this.state.page === 'answered' ? 'unanswered' : 'answered'}</Button>
                 {console.log(' unansquestion :', unAnsweredQuesID, 'answered:', answeredQuestionIds)}
                 {this.state.page === 'unanswered' ?
-                    unAnsweredQuesID.sort() .map((id) => <Question  key={id} id={id} />) :
-                    answeredQuestionIds.sort().map((id) => <Question  key={id} id={id} />
+                    unAnsweredQuesID.sort().map((id) => <Question key={id} id={id} />) :
+                    answeredQuestionIds.sort().map((id) => <Question key={id} id={id} />
                     )}
             </div>
         );

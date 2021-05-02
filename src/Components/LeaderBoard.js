@@ -1,32 +1,22 @@
-import { Button } from "react-bootstrap";
 import { Component } from "react";
 import { connect } from "react-redux";
-import Question from './Question'
-class Home extends Component {
-    state = {
-        page: 'unanswered'
-    }
-    togglePage = (e) => {
-        this.setState((prevState) => ({
-            page: prevState.page === 'answered' ? 'unanswered' : 'answered'
-        }))
+import User from "./User";
+class LeaderBoard extends Component {
 
-    }
     render() {
 
-        const { questionIds, authUser, answeredQuestionIds } = this.props;
-        const unAnsweredQuesID = questionIds.filter((id) => !answeredQuestionIds.includes(id))
+        const { usersIDs, users, questions } = this.props;
+        if (!users) {
+            return <div> loading </div>
+        }
         return (
             <div >
-                <Button
-                    value={this.state.page}
-                    onClick={this.togglePage}
-                >go to {this.state.page === 'answered' ? 'unanswered' : 'answered'}</Button>
-                {console.log(' unansquestion :', unAnsweredQuesID, 'answered:', answeredQuestionIds)}
-                {this.state.page === 'unanswered' ?
-                    unAnsweredQuesID.sort() .map((id) => <Question  key={id} id={id} />) :
-                    answeredQuestionIds.sort().map((id) => <Question  key={id} id={id} />
-                    )}
+
+                {console.log(' users :', users, '   questions  :', questions)}
+
+                { usersIDs.map((id) => <User key={id} userId={id}> </User>)}
+
+
             </div>
         );
 
@@ -36,13 +26,42 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
-    const { users, questions, authUser } = state
+    const { users, questions } = state
+    //sorting user ids by total questions enage
+    let usersTotalQuestions ={}
+    for (const key in users) {
+        Object.assign(usersTotalQuestions ,
+            {
+                [key]: (users[key].questions.length)+(Object.keys(users[key].answers).length)
+            })
+    }
+    let userIds = []
+    let UsersKeys = Object.keys(users);
+    UsersKeys.forEach(()=> {
+        let largestKey = '';
+        let largest = 0;
+        let index = 0;
+        let whereToSlice = 0
+
+        for (const key of UsersKeys) {
+            if (usersTotalQuestions[key] >= largest) {
+                largestKey = key
+                largest = usersTotalQuestions[key]
+                whereToSlice = index
+            }
+            index += 1;
+        }
+        userIds.push(largestKey)
+        UsersKeys = UsersKeys.slice(0, whereToSlice).concat(UsersKeys.slice(whereToSlice + 1, UsersKeys.length))
+    })
+
+
 
     return {
-        answeredQuestionIds: [].concat((users[authUser] ? Object.keys(users[authUser].answers) : null)),
-        questionIds: Object.keys(questions),
-        authUser,
+        usersIDs: userIds,
+        users: users,
+        questions: questions,
     }
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(LeaderBoard);

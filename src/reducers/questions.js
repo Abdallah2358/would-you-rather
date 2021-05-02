@@ -1,4 +1,4 @@
-import { RECEIVE_QUESTIONS , TOGGLE_ANSWER} from "../Actions/questions";
+import { ADD_QUESTION, RECEIVE_QUESTIONS , TOGGLE_ANSWER} from "../Actions/questions";
 
 export default function questions(state = {}, action) {
     switch (action.type) {
@@ -24,6 +24,12 @@ export default function questions(state = {}, action) {
 
                 }
             }
+
+            case ADD_QUESTION:
+                return{
+                    ...state,
+                    [action.question.id]:{...action.question}
+                }
         default:
             return state;
 

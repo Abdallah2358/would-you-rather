@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { handleAnswerVote } from '../Actions/shared';
-import { ProgressBar, Button, Card } from 'react-bootstrap';
+import { ProgressBar, Button } from 'react-bootstrap';
 
 //Todo : now there is 2 types of questions 
 /* the first is the answered question which shows how many voted  */
@@ -105,7 +105,7 @@ class Question extends Component {
         if (question === null) {
             return (<p>this question does not exist</p>)
         }
-        const { optionOne, optionTwo, id } = question;
+        const { optionOne, optionTwo } = question;
 
         let opOneVote = optionOne.votes.length ? optionOne.votes.length : 0;
         let opTwoVote = optionTwo.votes.length ? optionTwo.votes.length : 0;

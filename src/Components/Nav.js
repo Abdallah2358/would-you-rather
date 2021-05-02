@@ -1,25 +1,35 @@
 import { Component } from "react";
 import { connect } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
 
 class    Nav  extends Component {
     render(){
     /* Todo : add routing functionality to this nav  */
     //class of current page 
-    const active = 'nav-link  mx-2 p-1 rounded border-success border-4'
+    const active = 'nav-link  mx-5 p-1 rounded border-success border-4'
     //class of other pages 
     const inactive = 'nav-link  mx-2 p-1 rounded'
     const {changePage ,authUser ,logOut }=this.props
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light rounded">
+        <nav className="navbar  navbar-expand-lg navbar-light bg-light rounded">
             <ul className="nav  col-sm" >
             <li className="nav-item">
-                <button className={active} onClick= {(e)=>changePage(e.target.value)} value='home' >Home</button>
+                <Link className={active} to = '/'
+               // onClick= {(e)=>changePage(e.target.value)}
+                 value='home' >Home</Link>
             </li>
             <li className="nav-item">
-                <button className={inactive} onClick= {(e)=>changePage(e.target.value)} value='leader'>leader board</button>
+                <Link className={inactive} 
+               // onClick= {(e)=>changePage(e.target.value)} 
+                to= '/leaderBoard'
+                value='leader'
+                >leader board</Link>
             </li>
             <li className="nav-item">
-                <button className={inactive} onClick= {(e)=>changePage(e.target.value)} value='create' >New Question</button>
+                <Link className={inactive}
+                to ='/add'
+                // onClick= {(e)=>changePage(e.target.value)} 
+                value='create' >New Question</Link>
             </li>
           
         </ul>
