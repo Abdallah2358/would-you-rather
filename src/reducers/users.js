@@ -15,20 +15,11 @@ export default function users(state = {}, action) {
             if (Object.keys(state[action.authedUser].answers).includes(action.qid)) {
                 if (state[action.authedUser].answers[action.qid] === action.answer) {
                     console.log('in reducer in 1');
-                    /*   for (const key in state[action.authedUser].answers) {
-  
-                          if (key !== action.qid) {
-                              Object.assign(answers,
-                                  {
-                                      [key]: state[action.authedUser].answers[key]
-                                  })
-                          }
-                      } */
                     answers = {
                         ...state[action.authedUser].answers,
                         [action.qid]: action.answer
                     };
-                    delete answers[action.qid]; //lol :(
+                    delete answers[action.qid]; 
                 } else {
                     console.log('in reducer in 2');
                     answers = {

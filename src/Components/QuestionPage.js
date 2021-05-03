@@ -18,7 +18,7 @@ const QuestionPage = (props) => {
         <div className=' row d-flex justify-content-center my-5' >
             <div className="card" style={{ width: '70%', }}>
                 <img src={avatarURL} className="card-img-top my-2 w-25" alt={author} />
-                <Question isVoting={'true'} id={id} />
+                <Question isVoting={'true'} isAnswered={'false'} id={id} />
             </div>
         </div>
     );

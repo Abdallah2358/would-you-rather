@@ -37,15 +37,6 @@ class App extends Component {
 
   render() {
     const {  authedUser } = this.state
-    //  if (authedUser) {
-    /*  if (page === 'home') {
-       return (
-         <div className='container'>   <Nav changePage={this.changePage} logOut={this.logOut} />  <Home /> </div>)
-     } else if (page === 'leader') {
-       return (<div className='container' > <Nav changePage={this.changePage} logOut={this.logOut} /> <LeaderBoard /></div>);
-     } else if (page === 'create') {
-       return <div className='container' ><Nav changePage={this.changePage} logOut={this.logOut} /> <CreateQuestion /></div>
-     } */
     return (
       <BrowserRouter> <div className='container' >
 

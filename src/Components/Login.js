@@ -2,14 +2,11 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { setAuthedUser } from '../Actions/authUser'
 class Login extends Component {
-   
     authUser = (e) => {
         e.preventDefault();
         this.props.dispatch(setAuthedUser(e.target.value))
         this.props.authUser(e.target.value)
-        /* remember to route to home after in here */
     }
-
     render() {
         const { userIDs } = this.props;
         return (
@@ -25,10 +22,7 @@ class Login extends Component {
                 </form>
             </div>
         );
-
-
     }
-
 }
 
 function mapStateToProps({ users ,authUser}) {
