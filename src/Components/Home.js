@@ -24,8 +24,8 @@ class Home extends Component {
                 >go to {this.state.page === 'answered' ? 'unanswered' : 'answered'}</Button>
                 {console.log(' unansquestion :', unAnsweredQuesID, 'answered:', answeredQuestionIds)}
                 {this.state.page === 'unanswered' ?
-                    unAnsweredQuesID.map((id) => <Question key={id} id={id} />) :
-                    answeredQuestionIds.map((id) => <Question key={id} id={id} />
+                    unAnsweredQuesID.map((id) => <Question isVoting={'false'} isAnswered={'false'} key={id} id={id} />) :
+                    answeredQuestionIds.map((id) => <Question isVoting={'false'} isAnswered={'true'} key={id} id={id} />
                     )}
             </div>
         );

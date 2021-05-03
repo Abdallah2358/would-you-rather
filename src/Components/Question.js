@@ -102,7 +102,7 @@ class Question extends Component {
     }
 
     render() {
-        const { question, authUser } = this.props
+        const { question, authUser, isAnswered ,isVoting } = this.props
         if (question === null) {
             return (<p>this question does not exist</p>)
         }
@@ -111,48 +111,58 @@ class Question extends Component {
         let opOneVote = optionOne.votes.length ? optionOne.votes.length : 0;
         let opTwoVote = optionTwo.votes.length ? optionTwo.votes.length : 0;
         let totalVotes = optionOne.votes.length + optionTwo.votes.length
+
         return (
 
-            <div className="card mx-5 my-4  border-4 rounded"  >
+            <Link to={ isAnswered === 'true'?'/' :`/question/${question.id}`} className="card mx-5 my-4  border-4 rounded"  >
                 <div className="card-body">
-                    <Link to={`/question/${question.id}`}><h1>Would You Rather ?</h1></Link>
-                    <Button
+                   <h1>Would You Rather ?</h1>
+                    {isVoting ==='true'? (<Button 
                         variant={optionOne.votes.includes(authUser) ? 'primary' : 'secondary'}
                         className='my-2'
                         onClick={(e) => this.handleVote(e)}
-                        value={'optionOne'}>{optionOne.text}</Button>
+                        value={'optionOne'}>{optionOne.text}</Button>):
+                        (<h5 
+                        style ={optionOne.votes.includes(authUser) ? {color : 'green'} :{color : 'black'}}>{optionOne.text}</h5>)}
+
                     <ProgressBar
+                        style={isAnswered === 'true' ? { } : { display: 'none'}}
                         now={this.votePrecept(opOneVote, totalVotes)}
-                        label={`Percent = ${this.votePrecept(opOneVote, totalVotes)}% , Votes = ${opOneVote}` }
+                        label={`Percent = ${this.votePrecept(opOneVote, totalVotes)}% , Votes = ${opOneVote}`}
                         variant={opOneVote >= opTwoVote ? 'success' : 'info'}
                     />
-                    <Button
+                    {isVoting ==='true'?( <Button
                         variant={optionTwo.votes.includes(authUser) ? 'primary' : 'secondary'}
                         className='my-2'
                         onClick={(e) => this.handleVote(e)}
                         value={"optionTwo"}
-                    > {optionTwo.text}  </Button>
+                    > {optionTwo.text}  </Button>):
+                    (<h5
+                        style ={optionTwo.votes.includes(authUser) ? { color : 'green'} :{color : 'black'}}
+                        >{optionTwo.text}</h5>) }
+                   
                     <ProgressBar
+                        style={isAnswered === 'true' ? {  } : {display: 'none'}}
                         now={this.votePrecept(opTwoVote, totalVotes)}
                         label={`Percent = ${this.votePrecept(opTwoVote, totalVotes)}% , Votes = ${opTwoVote}`}
                         variant={opTwoVote >= opOneVote ? 'success' : 'info'}
                     />
 
                 </div>
-            </div>
+            </Link>
 
         )
     }
 
 }
 
-function mapStateToProps({ questions, authUser,users }, { id }) {
+function mapStateToProps({ questions, authUser, users }, { id }) {
     const question = questions[id];
 
 
     return ({
         question: question,
-        user:users[authUser],
+        user: users[authUser],
         authUser: authUser
     })
 
