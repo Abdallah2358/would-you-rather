@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class    Nav  extends Component {
     render(){
@@ -9,7 +9,7 @@ class    Nav  extends Component {
     const active = 'nav-link  mx-5 p-1 rounded border-success border-4'
     //class of other pages 
     const inactive = 'nav-link  mx-2 p-1 rounded'
-    const {changePage ,authUser ,logOut }=this.props
+    const {authUser ,logOut }=this.props
     return (
         <nav className="navbar  navbar-expand-lg navbar-light bg-light rounded">
             <ul className="nav  col-sm" >
@@ -45,7 +45,7 @@ class    Nav  extends Component {
 }
 function mapStateToProps({ authUser }) {
     return ({
-        authUser: ''+ authUser
+        authUser:  authUser
     })
 
 }

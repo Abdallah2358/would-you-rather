@@ -2,10 +2,13 @@
 import { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { connect } from "react-redux";
+import { Redirect } from "react-router";
 import { handleAddQuestion } from "../Actions/shared";
 
 class CreateQuestion extends Component {
-
+    state = {
+        asked : false
+    }
      test = (e) =>{
         e.preventDefault()
         const {dispatch}=this.props
@@ -13,8 +16,15 @@ class CreateQuestion extends Component {
         const op2 = e.target[1].value
         dispatch( handleAddQuestion(op1,op2))
         console.log( op1 , op2  );
+        this.setState((prevState) => ({
+            asked: true
+          }))
+        
     }
     render() {
+        if (this.state.asked) {
+            return(<Redirect to ={'/'}/>)
+        }
         return (
             <div className=' row d-flex justify-content-center ' >
                 <div className="card my-5 w-75">
@@ -31,8 +41,8 @@ class CreateQuestion extends Component {
                             </Form.Group>
 
 
-                            <Button variant="primary" className= 'my-2 ' type="submit">
-                                Submit </Button>
+                         <Button variant="primary" className= 'my-2 ' type="submit">
+                          Submit </Button> 
                         </Form>
 
                     </div>

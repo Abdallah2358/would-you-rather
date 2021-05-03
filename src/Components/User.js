@@ -12,7 +12,7 @@ class User extends Component {
         return (<div className=' row d-flex justify-content-center my-5' >
 
             <div className="card" style={{ width: '70%', }}>
-                <img src={user.avatarURL} className="card-img-top my-2" alt="..." />
+                <img src={user.avatarURL} className="card-img-top my-2" alt={user.id} />
                 <div className="card-body">
                     <h5 className="card-title">{userId}</h5>
                     {console.log('in user comp , the user  :',user)}

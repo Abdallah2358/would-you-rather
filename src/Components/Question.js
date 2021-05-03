@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { handleAnswerVote } from '../Actions/shared';
 import { ProgressBar, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 //Todo : now there is 2 types of questions 
 /* the first is the answered question which shows how many voted  */
@@ -31,7 +32,7 @@ class Question extends Component {
         below logic as commented below 
         */
 
-        const { dispatch, question, authUser,  } = this.props
+        const { dispatch, question, authUser, } = this.props
         const voteData = {
             authedUser: authUser,
             qid: question.id,
@@ -47,13 +48,13 @@ class Question extends Component {
             2nd : dispatch toggle the questionsAnswer using the received new answer
             3rd : dispatch the users toggle which in naturel of its reducer will handle the rest    
         */
-       /* this can further improved by using the action creator handle to use the .getstate 
-       method to just get a reference AKA pointer to state 
-       using this reference to access unresisting objects will return undefined which is huge 
-       in reducing the overhead in the reducer of using spread and objectkeys to check includes
-       instead providing more scalability 
-
-        to check if the questions  */
+        /* this can further improved by using the action creator handle to use the .getstate 
+        method to just get a reference AKA pointer to state 
+        using this reference to access unresisting objects will return undefined which is huge 
+        in reducing the overhead in the reducer of using spread and objectkeys to check includes
+        instead providing more scalability 
+ 
+         to check if the questions  */
         if (question.optionOne.votes.includes(authUser)) {
 
             if (voteData.answer === "optionOne") {
@@ -85,7 +86,7 @@ class Question extends Component {
             console.log('in 5');
             dispatch(handleAnswerVote(voteData))
         }
-        
+
 
 
 
@@ -112,9 +113,9 @@ class Question extends Component {
         let totalVotes = optionOne.votes.length + optionTwo.votes.length
         return (
 
-            <div className="card mx-5 my-4  border-4 rounded  " >
+            <div className="card mx-5 my-4  border-4 rounded"  >
                 <div className="card-body">
-                    <h1>Would You Rather ?</h1>
+                    <Link to={`/question/${question.id}`}><h1>Would You Rather ?</h1></Link>
                     <Button
                         variant={optionOne.votes.includes(authUser) ? 'primary' : 'secondary'}
                         className='my-2'
@@ -122,11 +123,9 @@ class Question extends Component {
                         value={'optionOne'}>{optionOne.text}</Button>
                     <ProgressBar
                         now={this.votePrecept(opOneVote, totalVotes)}
-                        label={opOneVote}
+                        label={`Percent = ${this.votePrecept(opOneVote, totalVotes)}% , Votes = ${opOneVote}` }
                         variant={opOneVote >= opTwoVote ? 'success' : 'info'}
                     />
-
-
                     <Button
                         variant={optionTwo.votes.includes(authUser) ? 'primary' : 'secondary'}
                         className='my-2'
@@ -135,7 +134,7 @@ class Question extends Component {
                     > {optionTwo.text}  </Button>
                     <ProgressBar
                         now={this.votePrecept(opTwoVote, totalVotes)}
-                        label={opTwoVote}
+                        label={`Percent = ${this.votePrecept(opTwoVote, totalVotes)}% , Votes = ${opTwoVote}`}
                         variant={opTwoVote >= opOneVote ? 'success' : 'info'}
                     />
 
@@ -147,13 +146,14 @@ class Question extends Component {
 
 }
 
-function mapStateToProps({ questions , authUser }, { id }) {
+function mapStateToProps({ questions, authUser,users }, { id }) {
     const question = questions[id];
 
 
     return ({
-        question: question ? question : null,
-        authUser : authUser
+        question: question,
+        user:users[authUser],
+        authUser: authUser
     })
 
 }

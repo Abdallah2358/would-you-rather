@@ -6,7 +6,7 @@ import {saveQuestionAnswer} from '../utils/api';
 import {toggleQuestionAnswer} from './questions';
 import {toggleUserAnswer} from './users';
 /* Todo: remove this id an replace it by  the one received from login */
-const authedId = 'sarahedo'
+const authedId = ''
 
 export function handleInitialData() {
 

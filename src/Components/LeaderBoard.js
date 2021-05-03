@@ -35,9 +35,9 @@ function mapStateToProps(state) {
                 [key]: (users[key].questions.length)+(Object.keys(users[key].answers).length)
             })
     }
-    let userIds = []
+    //let userIds = []
     let UsersKeys = Object.keys(users);
-    UsersKeys.forEach(()=> {
+    /* UsersKeys.forEach(()=> {
         let largestKey = '';
         let largest = 0;
         let index = 0;
@@ -53,12 +53,12 @@ function mapStateToProps(state) {
         }
         userIds.push(largestKey)
         UsersKeys = UsersKeys.slice(0, whereToSlice).concat(UsersKeys.slice(whereToSlice + 1, UsersKeys.length))
-    })
+    }) */
 
-
+    UsersKeys.sort((a,b)=> usersTotalQuestions[b]-usersTotalQuestions[a] )//again XD the commented code works btw :(
 
     return {
-        usersIDs: userIds,
+        usersIDs: UsersKeys,
         users: users,
         questions: questions,
     }

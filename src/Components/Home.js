@@ -24,8 +24,8 @@ class Home extends Component {
                 >go to {this.state.page === 'answered' ? 'unanswered' : 'answered'}</Button>
                 {console.log(' unansquestion :', unAnsweredQuesID, 'answered:', answeredQuestionIds)}
                 {this.state.page === 'unanswered' ?
-                    unAnsweredQuesID.sort().map((id) => <Question key={id} id={id} />) :
-                    answeredQuestionIds.sort().map((id) => <Question key={id} id={id} />
+                    unAnsweredQuesID.map((id) => <Question key={id} id={id} />) :
+                    answeredQuestionIds.map((id) => <Question key={id} id={id} />
                     )}
             </div>
         );
@@ -36,11 +36,14 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
-    const { users, questions, authUser } = state
-
+    const { users, questions, authUser } = state;
+    let answers ={}
+    if(authUser){
+         answers = users[authUser].answers
+    }
     return {
-        answeredQuestionIds: [].concat((users[authUser] ? Object.keys(users[authUser].answers) : null)),
-        questionIds: Object.keys(questions),
+        answeredQuestionIds:  Object.keys(answers).sort((a, b) => questions[b].timestamp - questions[a].timestamp),
+        questionIds: Object.keys(questions).sort((a, b) => questions[b].timestamp - questions[a].timestamp),
         authUser,
     }
 }

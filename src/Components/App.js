@@ -7,10 +7,10 @@ import { handleInitialData } from "../Actions/shared";
 import { setAuthedUser } from '../Actions/authUser';
 import LeaderBoard from './LeaderBoard';
 import CreateQuestion from './CreateQuestion';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, useLocation } from 'react-router-dom';
+import QuestionPage from './QuestionPage';
 class App extends Component {
   state = {
-    page: 'login',
     authedUser: ''
   }
   componentDidMount() {
@@ -23,21 +23,20 @@ class App extends Component {
   }
   authUser = (user) => {
     this.setState((prevState) => ({
-      page: 'home',
+      
       authedUser: user
     }))
   }
   logOut = () => {
 
     this.setState((prevState) => ({
-      page: 'login',
       authedUser: ''
     }))
     this.props.dispatch(setAuthedUser(''))
   }
 
   render() {
-    const { page, authedUser } = this.state
+    const {  authedUser } = this.state
     //  if (authedUser) {
     /*  if (page === 'home') {
        return (
@@ -48,15 +47,26 @@ class App extends Component {
        return <div className='container' ><Nav changePage={this.changePage} logOut={this.logOut} /> <CreateQuestion /></div>
      } */
     return (
-      <BrowserRouter>
-        <div className='container' >
-          <Nav changePage={this.changePage} logOut={this.logOut} />
-          <Route path='/' exact  >
-          {authedUser ? <Home/> : <Login authUser={this.authUser}/>}
+      <BrowserRouter> <div className='container' >
+
+        <Nav changePage={this.changePage} logOut={this.logOut} />
+        <Switch>
+
+          <Route exact path='/'   >
+            {authedUser ? <Home /> : <Login authUser={this.authUser} />}
           </Route>
-          <Route path='/leaderBoard' >{authedUser ? <LeaderBoard/> : <Login authUser={this.authUser}/>}</Route> 
-          <Route path='/add' >{authedUser ?<CreateQuestion /> : <Login authUser={this.authUser}/>} </Route> 
-        </div>
+          <Route path = '/question/:id' >
+          {authedUser? <QuestionPage />: <Login authUser={this.authUser}/>}
+             </Route>
+          <Route path='/leaderBoard' exact >{authedUser ? <LeaderBoard /> : <Login authUser={this.authUser} />}</Route>
+          <Route path='/add' exact >{authedUser ? <CreateQuestion /> : <Login authUser={this.authUser} />} </Route>
+
+          <Route path="*">
+            {authedUser? <NoMatch />: <Login authUser={this.authUser}/>}
+          </Route>
+
+        </Switch>
+      </div>
       </BrowserRouter>
     )
 
@@ -73,3 +83,16 @@ class App extends Component {
 }
 
 export default connect()(App);
+
+
+function NoMatch() {
+  let location = useLocation();
+
+  return (
+    <div>
+      <h3>
+      Error 404  No match for <code>{location.pathname}</code>
+      </h3>
+    </div>
+  );
+}
